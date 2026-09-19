@@ -90,7 +90,36 @@ Ranked by payoff.
 
 Ceiling: ETB owns 30 MHz on Band 4. Real-world 20 to 60 Mbps. Past that, the network is the limit.
 
+## Harden
+
+Profile: `python3 make_hardening.py` builds `iPhone-Hardening.mobileconfig`. Install the same way as step 3B. Separate from the ETB profile so it can be removed on its own. Only unsupervised-safe keys, no wipe-on-failure.
+
+| Payload | Enforces |
+|---|---|
+| Passcode policy | 6+ digits, no simple codes, required immediately, 2 min auto-lock |
+| Lock screen | Control Center, Today view, Siri, voice dialing blocked while locked |
+| TLS | untrusted-certificate prompt disabled (rogue hotspots cannot phish a cert) |
+| Backups | local backups must be encrypted |
+| Telemetry | diagnostics off, ad tracking limited, Safari fraud warning on |
+
+If the current passcode is simple, iOS asks for a new one within 60 minutes of install. Captive portals with self-signed certs will fail; use cellular there.
+
+Manual, in order. No profile can set these on a personal device:
+1. Face ID & Passcode > **Stolen Device Protection** On, Always.
+2. Cellular > **SIM PIN** On. Get the PUK from the Mi ETB app or 3777777 **first**. Three wrong PIN entries lock the SIM and only the PUK opens it. Never guess the carrier default.
+3. Apple ID > iCloud > **Advanced Data Protection** On. Store the recovery key on paper.
+4. Face ID & Passcode > **Accessories** Off (USB locked while phone locked).
+5. Face ID & Passcode > Allow Access When Locked: Wallet, Reply with Message, Home Control, Accessories Off.
+6. General > AirDrop > **Contacts Only**. Bringing Devices Together Off.
+7. Wi-Fi > Ask to Join Off, Auto-Join Hotspot Never, Private Wi-Fi Address On per network.
+8. Messages > **Filter Unknown Senders** On.
+9. Apple ID > Sign-In & Security > Account Recovery: recovery contact plus recovery key.
+10. Privacy & Security > **Safety Check**: run once.
+11. Privacy & Security > Lockdown Mode: only if individually targeted. Breaks everyday use.
+
 ## Files
 
 - `make_profile.py`: builds the `.mobileconfig` APN profile (deterministic UUIDs, so reinstalling replaces instead of duplicating). `--dns cloudflare|quad9` adds an encrypted-DNS payload.
 - `ETB-LTE.mobileconfig`: the generated profile, ready to install.
+- `ETB-LTE-DNS.mobileconfig`: APN plus Quad9 DNS-over-HTTPS.
+- `make_hardening.py` / `iPhone-Hardening.mobileconfig`: passcode policy and lock-screen, TLS, backup, telemetry restrictions.

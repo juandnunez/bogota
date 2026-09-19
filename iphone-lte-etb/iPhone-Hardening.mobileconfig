@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>PayloadIdentifier</key>
+	<string>co.net.etb.hardening</string>
+	<key>PayloadUUID</key>
+	<string>BE08D036-07D5-595C-9BEE-386A6AECD54F</string>
+	<key>PayloadDisplayName</key>
+	<string>iPhone Hardening</string>
+	<key>PayloadDescription</key>
+	<string>Passcode policy, lock-screen lockdown, no untrusted-TLS prompt, encrypted backups, telemetry off.</string>
+	<key>PayloadOrganization</key>
+	<string>Self-managed</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadType</key>
+			<string>com.apple.mobiledevice.passwordpolicy</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadIdentifier</key>
+			<string>co.net.etb.hardening.passcode</string>
+			<key>PayloadUUID</key>
+			<string>F5486184-0922-54AF-89D0-F86E1A622680</string>
+			<key>PayloadDisplayName</key>
+			<string>Passcode policy</string>
+			<key>forcePIN</key>
+			<true/>
+			<key>allowSimple</key>
+			<false/>
+			<key>minLength</key>
+			<integer>6</integer>
+			<key>maxGracePeriod</key>
+			<integer>0</integer>
+			<key>maxInactivity</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>PayloadType</key>
+			<string>com.apple.applicationaccess</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadIdentifier</key>
+			<string>co.net.etb.hardening.restrictions</string>
+			<key>PayloadUUID</key>
+			<string>F2DC19B5-C998-5CB0-A908-0B92F58E0AB3</string>
+			<key>PayloadDisplayName</key>
+			<string>Lock screen and network restrictions</string>
+			<key>allowLockScreenControlCenter</key>
+			<false/>
+			<key>allowLockScreenTodayView</key>
+			<false/>
+			<key>allowAssistantWhileLocked</key>
+			<false/>
+			<key>allowVoiceDialing</key>
+			<false/>
+			<key>allowUntrustedTLSPrompt</key>
+			<false/>
+			<key>safariForceFraudWarning</key>
+			<true/>
+			<key>forceEncryptedBackup</key>
+			<true/>
+			<key>allowDiagnosticSubmission</key>
+			<false/>
+			<key>forceLimitAdTracking</key>
+			<true/>
+		</dict>
+	</array>
+</dict>
+</plist>
