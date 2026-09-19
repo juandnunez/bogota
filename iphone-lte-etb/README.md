@@ -72,6 +72,10 @@ Work through in order, test after each:
 - Speed test on LTE > 5 Mbps down means you are on ETB Band 4, not 3G fallback.
 - Field Test (dial `*3001#12345#*`) > LTE > Serving Cell Info: band should read 4 inside Bogotá.
 
+## Verified
+
+2026-09-19, iPhone 17 Pro Max, iOS 26.6.2, physical SIM, carrier bundle 70.0: LTE up on ETB 4G with the APN above auto-provisioned in Cellular Data, LTE Setup, and Personal Hotspot. MMS fields left blank. Steps 1 and 2 were enough; the profile in step 3B was not needed.
+
 ## Files
 
 - `make_profile.py`: builds the `.mobileconfig` APN profile (deterministic UUIDs, so reinstalling replaces instead of duplicating).
