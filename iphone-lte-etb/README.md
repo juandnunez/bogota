@@ -35,7 +35,7 @@ Check: Settings > Cellular > the ETB line shows "On" and the status bar shows "E
 ## 2. Carrier settings + LTE mode
 
 1. Settings > General > About. If a "Carrier Settings Update" prompt appears, tap Update.
-2. Settings > Cellular > (ETB line) > Voice & Data > **LTE** (or 4G). Enable **VoLTE** if shown.
+2. Settings > Cellular > (ETB line) > Voice & Data > **LTE**. Not 5G Auto: ETB has no 5G spectrum, so 5G only appears via the roaming partner and adds handoff churn. Turn **VoLTE On**, then place one test call. If the call fails, ETB support (3777777) must enable VoLTE on the line.
 3. Settings > Cellular > (ETB line) > Data Roaming > **On**. ETB uses national roaming in areas without its own Band 4 sites; with roaming off you lose data the moment you leave ETB coverage.
 4. Toggle Airplane Mode on/off.
 
