@@ -76,7 +76,21 @@ Work through in order, test after each:
 
 2026-09-19, iPhone 17 Pro Max, iOS 26.6.2, physical SIM, carrier bundle 70.0: LTE up on ETB 4G with the APN above auto-provisioned in Cellular Data, LTE Setup, and Personal Hotspot. MMS fields left blank. Steps 1 and 2 were enough; the profile in step 3B was not needed.
 
+## Optimize (after LTE works)
+
+Ranked by payoff.
+
+1. **Wi-Fi Calling On.** Settings > Cellular > ETB line > Wi-Fi Calling. Band 4 penetrates buildings badly; indoors this is what keeps calls up. Toggle missing means ETB has not enabled it on the line.
+2. **Encrypted DNS.** `python3 make_profile.py --dns cloudflare -o ETB-LTE-DNS.mobileconfig` (or `--dns quad9`), install the same way as step 3B. Replaces carrier DNS with DNS-over-HTTPS on cellular and Wi-Fi.
+3. **Stop background data bleed.** Settings > Cellular: cut Photos, App Store, media-sync apps. Settings > General > Background App Refresh > Wi-Fi. ETB plans are capped.
+4. **Hotspot.** Personal Hotspot > Maximize Compatibility Off (5 GHz for laptops). Allow Others to Join Off.
+5. **Network Selection: leave Automatic.** Pinning ETB manually disables national roaming outside Band 4 coverage.
+6. **Signal audit.** Field Test > LTE > Serving Cell > RSRP. Above -100 dBm good. Below -110 dBm at a fixed location means Wi-Fi Calling is mandatory there.
+7. **eSIM migration.** Move ETB to eSIM to free the physical slot for a travel SIM. Then set Allow Cellular Data Switching Off so the foreign SIM never bills background data.
+
+Ceiling: ETB owns 30 MHz on Band 4. Real-world 20 to 60 Mbps. Past that, the network is the limit.
+
 ## Files
 
-- `make_profile.py`: builds the `.mobileconfig` APN profile (deterministic UUIDs, so reinstalling replaces instead of duplicating).
+- `make_profile.py`: builds the `.mobileconfig` APN profile (deterministic UUIDs, so reinstalling replaces instead of duplicating). `--dns cloudflare|quad9` adds an encrypted-DNS payload.
 - `ETB-LTE.mobileconfig`: the generated profile, ready to install.

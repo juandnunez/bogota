@@ -32,7 +32,38 @@ def _uid(name: str) -> str:
     return str(uuid.uuid5(_NS, name)).upper()
 
 
-def build_profile(apn: str = APN, legacy: bool = False) -> dict:
+DNS_PROVIDERS = {
+    "cloudflare": {
+        "url": "https://cloudflare-dns.com/dns-query",
+        "addresses": ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"],
+    },
+    "quad9": {
+        "url": "https://dns.quad9.net/dns-query",
+        "addresses": ["9.9.9.9", "149.112.112.112", "2620:fe::fe", "2620:fe::9"],
+    },
+}
+
+
+def dns_payload(provider: str) -> dict:
+    """DNS-over-HTTPS payload (iOS 14+). Applies on cellular and Wi-Fi."""
+    p = DNS_PROVIDERS[provider]
+    return {
+        "PayloadType": "com.apple.dnsSettings.managed",
+        "PayloadVersion": 1,
+        "PayloadIdentifier": f"co.net.etb.lte.dns.{provider}",
+        "PayloadUUID": _uid(f"dns-{provider}"),
+        "PayloadDisplayName": f"Encrypted DNS ({provider})",
+        "PayloadDescription": "Pins DNS-over-HTTPS instead of carrier DNS.",
+        "DNSSettings": {
+            "DNSProtocol": "HTTPS",
+            "ServerURL": p["url"],
+            "ServerAddresses": p["addresses"],
+        },
+        "ProhibitDisablement": False,
+    }
+
+
+def build_profile(apn: str = APN, legacy: bool = False, dns: str | None = None) -> dict:
     apn_entry: dict = {
         "Name": apn,
         "AuthenticationType": "PAP",
@@ -59,6 +90,10 @@ def build_profile(apn: str = APN, legacy: bool = False) -> dict:
         "APNs": [apn_entry],
     }
 
+    content = [cellular_payload]
+    if dns:
+        content.append(dns_payload(dns))
+
     return {
         "PayloadType": "Configuration",
         "PayloadVersion": 1,
@@ -68,7 +103,7 @@ def build_profile(apn: str = APN, legacy: bool = False) -> dict:
         "PayloadDescription": "Sets the ETB mobile-data APN so LTE data works on iPhone.",
         "PayloadOrganization": "ETB (self-managed)",
         "PayloadRemovalDisallowed": False,
-        "PayloadContent": [cellular_payload],
+        "PayloadContent": content,
     }
 
 
@@ -76,12 +111,15 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--legacy", action="store_true",
                     help=f"use legacy APN {LEGACY_APN} with etb/etb credentials")
+    ap.add_argument("--dns", choices=sorted(DNS_PROVIDERS), default=None,
+                    help="also pin encrypted DNS (DoH) to this provider")
     ap.add_argument("--check", action="store_true",
                     help="re-read the generated file and dump it")
     ap.add_argument("-o", "--out", type=Path, default=OUT)
     args = ap.parse_args(argv)
 
-    profile = build_profile(LEGACY_APN if args.legacy else APN, legacy=args.legacy)
+    profile = build_profile(LEGACY_APN if args.legacy else APN,
+                            legacy=args.legacy, dns=args.dns)
     with args.out.open("wb") as fh:
         plistlib.dump(profile, fh, sort_keys=False)
     print(f"wrote {args.out}")
