@@ -62,11 +62,11 @@
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>PayloadIdentifier</key>
-			<string>co.net.etb.lte.dns.cloudflare</string>
+			<string>co.net.etb.lte.dns.quad9</string>
 			<key>PayloadUUID</key>
-			<string>195A1647-884F-5CC2-AB9D-B19EC9F98A9B</string>
+			<string>B58D0132-A1B6-53B7-9929-D7DBBC52E60A</string>
 			<key>PayloadDisplayName</key>
-			<string>Encrypted DNS (cloudflare)</string>
+			<string>Encrypted DNS (quad9)</string>
 			<key>PayloadDescription</key>
 			<string>Pins DNS-over-HTTPS instead of carrier DNS.</string>
 			<key>DNSSettings</key>
@@ -74,13 +74,13 @@
 				<key>DNSProtocol</key>
 				<string>HTTPS</string>
 				<key>ServerURL</key>
-				<string>https://cloudflare-dns.com/dns-query</string>
+				<string>https://dns.quad9.net/dns-query</string>
 				<key>ServerAddresses</key>
 				<array>
-					<string>1.1.1.1</string>
-					<string>1.0.0.1</string>
-					<string>2606:4700:4700::1111</string>
-					<string>2606:4700:4700::1001</string>
+					<string>9.9.9.9</string>
+					<string>149.112.112.112</string>
+					<string>2620:fe::fe</string>
+					<string>2620:fe::9</string>
 				</array>
 			</dict>
 			<key>ProhibitDisablement</key>

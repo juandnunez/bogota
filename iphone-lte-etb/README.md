@@ -81,7 +81,7 @@ Work through in order, test after each:
 Ranked by payoff.
 
 1. **Wi-Fi Calling On.** Settings > Cellular > ETB line > Wi-Fi Calling. Band 4 penetrates buildings badly; indoors this is what keeps calls up. Toggle missing means ETB has not enabled it on the line.
-2. **Encrypted DNS.** `python3 make_profile.py --dns cloudflare -o ETB-LTE-DNS.mobileconfig` (or `--dns quad9`), install the same way as step 3B. Replaces carrier DNS with DNS-over-HTTPS on cellular and Wi-Fi.
+2. **Encrypted DNS.** `python3 make_profile.py --dns quad9 -o ETB-LTE-DNS.mobileconfig` (or `--dns cloudflare`), install the same way as step 3B. Committed `ETB-LTE-DNS.mobileconfig` is the Quad9 build. Replaces carrier DNS with DNS-over-HTTPS on cellular and Wi-Fi.
 3. **Stop background data bleed.** Settings > Cellular: cut Photos, App Store, media-sync apps. Settings > General > Background App Refresh > Wi-Fi. ETB plans are capped.
 4. **Hotspot.** Personal Hotspot > Maximize Compatibility Off (5 GHz for laptops). Allow Others to Join Off.
 5. **Network Selection: leave Automatic.** Pinning ETB manually disables national roaming outside Band 4 coverage.
