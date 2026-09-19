@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>PayloadIdentifier</key>
+	<string>co.net.etb.lte</string>
+	<key>PayloadUUID</key>
+	<string>0CDE0399-FAFE-55CD-9818-349F93A948CE</string>
+	<key>PayloadDisplayName</key>
+	<string>ETB LTE (Colombia)</string>
+	<key>PayloadDescription</key>
+	<string>Sets the ETB mobile-data APN so LTE data works on iPhone.</string>
+	<key>PayloadOrganization</key>
+	<string>ETB (self-managed)</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadType</key>
+			<string>com.apple.cellular</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadIdentifier</key>
+			<string>co.net.etb.lte.cellular</string>
+			<key>PayloadUUID</key>
+			<string>520C447D-1E80-53E6-92EA-DC0AD19F9E66</string>
+			<key>PayloadDisplayName</key>
+			<string>ETB APN</string>
+			<key>PayloadDescription</key>
+			<string>Data APN internetmovil.etb.net.co for ETB (PLMN 732187).</string>
+			<key>AttachAPN</key>
+			<dict>
+				<key>Name</key>
+				<string>internetmovil.etb.net.co</string>
+				<key>AuthenticationType</key>
+				<string>PAP</string>
+			</dict>
+			<key>APNs</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>internetmovil.etb.net.co</string>
+					<key>AuthenticationType</key>
+					<string>PAP</string>
+					<key>AllowedProtocolMask</key>
+					<integer>3</integer>
+					<key>AllowedProtocolMaskInRoaming</key>
+					<integer>3</integer>
+					<key>AllowedProtocolMaskInDomesticRoaming</key>
+					<integer>3</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>PayloadType</key>
+			<string>com.apple.dnsSettings.managed</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadIdentifier</key>
+			<string>co.net.etb.lte.dns.quad9</string>
+			<key>PayloadUUID</key>
+			<string>B58D0132-A1B6-53B7-9929-D7DBBC52E60A</string>
+			<key>PayloadDisplayName</key>
+			<string>Encrypted DNS (quad9)</string>
+			<key>PayloadDescription</key>
+			<string>Pins DNS-over-HTTPS instead of carrier DNS.</string>
+			<key>DNSSettings</key>
+			<dict>
+				<key>DNSProtocol</key>
+				<string>HTTPS</string>
+				<key>ServerURL</key>
+				<string>https://dns.quad9.net/dns-query</string>
+				<key>ServerAddresses</key>
+				<array>
+					<string>9.9.9.9</string>
+					<string>149.112.112.112</string>
+					<string>2620:fe::fe</string>
+					<string>2620:fe::9</string>
+				</array>
+			</dict>
+			<key>ProhibitDisablement</key>
+			<false/>
+		</dict>
+	</array>
+</dict>
+</plist>
