@@ -1,0 +1,5 @@
+# never commit customer data extracts
+zc_erase.csv
+zc_ledger.csv
+zona_centro_unbacked_104.csv
+*.csv
