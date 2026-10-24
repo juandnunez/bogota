@@ -57,6 +57,9 @@ def main():
     ap.add_argument('--out', default=pathlib.Path(__file__).with_name('episodio.mp3'))
     ap.add_argument('--length-scale', default='1.05', help='>1 habla más lento')
     ap.add_argument('--piper', default='piper', help='ejecutable de piper')
+    ap.add_argument('--title', default='Lo que pasó antes de entender por qué')
+    ap.add_argument('--album', default='Sinastría Luna–Venus–Marte')
+    ap.add_argument('--language', default='spa')
     args = ap.parse_args()
 
     md = pathlib.Path(args.texto).read_text(encoding='utf-8')
@@ -81,9 +84,9 @@ def main():
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', str(lista),
                         '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11',
                         '-codec:a', 'libmp3lame', '-b:a', '96k', '-ac', '1',
-                        '-metadata', 'title=Lo que pasó antes de entender por qué',
-                        '-metadata', 'album=Sinastría Luna–Venus–Marte',
-                        '-metadata', 'language=spa', str(args.out)], check=True)
+                        '-metadata', f'title={args.title}',
+                        '-metadata', f'album={args.album}',
+                        '-metadata', f'language={args.language}', str(args.out)], check=True)
     print(f'\nlisto: {args.out}')
 
 
